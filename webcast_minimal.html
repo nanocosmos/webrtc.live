@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<!-- nanoStream WebRTC Webcast / Broadcast to RTMP
+     (c) 2014-2018 nanocosmos gmbh, All rights reserved
+     http://www.nanocosmos.de -->
+<html>
+<head>
+    <title>nanoStream WebRTC.live minimal broadcast sample</title>
+</head>
+<body>
+
+    <video id="video-local" class="remote-element-video" autoplay muted style="width:800;height:600"></video>
+
+    <button id="btn-startbroadcast">broadcast</button>
+    <button id="btn-stopbroadcast">stop broadcast</button>
+
+    
+      
+    
+        <script src="./js/api/webrtc/nano.webrtc.4.8.0.min.js"></script>
+        <script src="./js/api/bintu/nano.bintu.0.5.min.js"></script>
+    
+    
+    <script src="./js/app/nano.config.js"></script>
+    <script type="text/javascript">
+
+        // create user
+        var user = new window.nanowebrtc.user();
+        
+        var config = window.NANOCONFIG; // included above (nano.config.js)
+
+        var server = config.webrtc.server;
+        var broadcastername = "broadcaster";
+        var roomname = "room1";
+
+        // authentication
+        var token = config.webrtc.token;
+        var username = config.webrtc.serverusername;
+        var password = config.webrtc.serverpassword;
+        var bintuApiKey = config.bintu.apikey;
+
+        var rtmpOutput = config.stream.url + '/' + config.stream.name;
+
+        // configure server and authentication
+        user.setConfig(
+            server,
+            broadcastername,
+            roomname,
+            token,
+            username,
+            password,
+            bintuApiKey
+        );
+
+        // start preview
+        user.addLocalMedia("local", 0, null, false);
+        user.getDevices("local");
+        user.on("ReceivedDeviceList", function(event){
+            
+            // available devices
+            var audioDevices = event.data.devices.audiodevices;
+            var videoDevices = event.data.devices.videodevices;
+
+            var videoDeviceConfig = {
+                device: 0 // choose first device found
+            };
+
+            var audioDeviceConfig = {
+                device: 0 // choose first device found
+            };
+
+            var videoElement = "video-local";
+
+            user.startPreview("local", videoDeviceConfig,
+                audioDeviceConfig,
+                videoElement
+            );
+
+        });
+
+        // register API event handlers
+        user.on("StartPreviewSuccess", function(event) {
+            console.log(event);
+        });
+
+        user.on("StartPreviewError", function(event) {
+            showError(event.data.text);
+        });
+
+        user.on("StartBroadcastSuccess", function(event){
+            console.log(event);
+        });
+
+        user.on("StartBroadcastError", function(event){
+            showError(event.data.text);
+        });
+
+        // regsiter UI event handlers
+        document.getElementById("btn-startbroadcast").addEventListener("click", function(){
+            var broadcastConfig = {
+                transcodingTargets: {
+                    output: rtmpOutput,
+                    framerate: 25,
+                }
+            };
+            user.startBroadcast(broadcastConfig);
+        });
+        
+        document.getElementById("btn-stopbroadcast").addEventListener("click", function(){
+            user.stopBroadcast();
+        });
+
+        function showError(errorMessage) {
+            alert(errorMessage)
+        };
+
+
+        window.onbeforeunload = function (event) {
+            user.stopBroadcast();
+        };
+
+    </script>
+    <!--<!(endif)-->
+</body>
+</html>

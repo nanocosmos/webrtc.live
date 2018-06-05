@@ -1,0 +1,199 @@
+﻿@media (max-width: 768px) and (orientation: portrait) {
+    body {
+        background-color:black;
+    }
+
+    .video-container {
+        position:fixed;
+        width:100vw;
+        height:100vh;
+        border:0;
+        margin:0;
+        left:0;
+        top:0;
+    }
+
+    .btn-connect {
+        display:inline-block;
+        visibility: visible;
+        width:6em;
+        height: 2em;        
+        z-index: 3;
+        font-size: 1em;
+        font-weight:200;
+        line-height: 1.8em;
+        vertical-align:middle;
+        text-align:center;
+        color: white !important;
+        background-color: limegreen;
+        border-radius: 1em;
+        border: 2px solid white;
+        cursor: pointer;
+        margin-right: 3rem;       
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 3em;
+        right: 0;
+    }
+
+    .btn-connected {        
+        background-color: red !important;
+    }
+
+    .btn-call {
+       display:inline-block;
+        visibility: visible;
+        width:6em;
+        height: 2em;        
+        z-index: 3;
+        font-size: 1em;
+        font-weight:200;
+        line-height: 1.8em;
+        vertical-align:middle;
+        text-align:center;
+        color: white !important;
+        background-color: limegreen;
+        border-radius: 1em;
+        border: 2px solid white;
+        cursor: pointer;
+        margin-right: 9em;       
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 3em;
+        right: 0;
+    }
+
+    .btn-called {        
+        background-color: red !important;
+    }
+
+    .record {
+        display:inline-block;
+        visibility: visible;
+        width: 40px;
+        height: 40px;        
+        z-index: 3;
+        font-size: 32px;
+        color: white !important;
+        background-color: red;
+        border-radius: 50%;
+        border: 2px solid white;
+        cursor: pointer;
+        margin-right: 3rem;       
+        position: fixed;
+        top: 50%;
+        margin-top: -16px;
+        right: 0;
+    }
+
+    .broadcast {
+        /*background-image: url('images/loader.gif');  LOADER FUNCTION */
+        border-radius: 10%;
+    }
+
+    .opt-btn {
+        display:inline-block;
+        visibility: visible;
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        z-index: 3;
+        cursor: pointer;
+    }
+
+    .opt-btn-settings {
+        left:0;
+        top:0;
+        margin-left: 2rem;
+        margin-top: 2rem;
+        z-index:5;
+    }
+
+    .opt-btn-mute {
+        right:4rem;
+        top:0;
+        margin-right: 2rem;
+        margin-top: 2.2rem;        
+        position: fixed;
+    }
+
+    .opt-btn-rotatecamera {
+        right:0;
+        top:0;
+        margin-right: 2rem;
+        margin-top: 2rem;       
+        position: fixed;
+    }
+
+    .opts {
+        background-color: rgba(0,0,0,0.66);
+        display: none;
+        width:100vw;
+        padding-left: 1rem;
+        padding-right:1rem;
+        min-height:100vh;
+        margin:0;
+    }
+
+    .opts-show {        
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        padding-top: 8rem;
+        z-index: 4;
+    }
+    
+    .controls,.line {
+        margin-left:0;
+    }  
+
+    .broadcast-controls {
+        display:none;
+        width:90%;
+    }
+
+    .video-audio-controls {
+        display:inline-block;
+    }
+
+    .audio-levelmeter {
+        width:100vw;position:absolute;left:0;bottom:0;
+    }
+
+    .audio-level {
+        width:100vw;background-color:transparent;height:1rem;
+    }
+
+    select,input {        
+        background-color: rgba(255,255,255,1);
+    }
+
+    .not-on-mobile {
+        display:none !important;
+    }   
+
+    .span-chat {
+        display:inline-block;
+        visibility: visible;
+        width:auto;
+        height: 2em;        
+        z-index: 3;
+        font-size: 1em;
+        font-weight:200;
+        line-height: 1.8em;
+        vertical-align:middle;
+        text-align:center;
+        color: white !important;
+        background-color: limegreen;
+        border-radius: 1em;
+        cursor: pointer;
+        margin-left: 3em;       
+        position: fixed;
+        bottom: 0;
+        margin-bottom: 3em;
+        left: 0;
+        padding: 0 1em 0 1em;
+    }
+}

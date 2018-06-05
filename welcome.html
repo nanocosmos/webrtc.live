@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- nanoStream WebRTC Webcast / Broadcast to RTMP
+     (c) 2014-2018 nanocosmos gmbh, All rights reserved
+     http://www.nanocosmos.de -->
+<html>
+<head>
+    <title>nanoStream WebRTC.live broadcast</title>
+    <link href="./css/lib/bootstrap.css" media="all" rel="stylesheet">
+    <link href="./css/app/nano.chat.css" media="all" rel="stylesheet">
+    <link href="./css/app/nano.chat.mobile.css" media="all" rel="stylesheet">
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="col-sm-12">
+                    <h1>nanoStream WebRTC.live
+                    </h1>
+                    <a href="http://nanocosmos.de/contact">nanocosmos.de/contact</a>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <div class="panel panel-primary container-fluid text-center">
+            <div class="panel-heading"><h4>Welcome</h4></div>
+            <div class="panel-body" style="font-weight:bold">
+                <br>
+                <label for="bintu-api-key">Bintu Api Key:</label>
+                <input id="bintu-api-key" type="text" class="form-control" placeholder="enter your bintu api key">
+                <br>
+                <button id="btn-enter" onclick="enterWebcastPage()" class="btn btn-primary">enter webcast page</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/lib/jquery-2.1.1.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+        function enterWebcastPage() {
+            var apikey = document.getElementById('bintu-api-key').value;
+            if(apikey && apikey !== "") {
+                var fullUrl = document.URL.substr(0,document.URL.lastIndexOf('/')) + '/webcast.html?bintu.apikey=' + apikey; 
+                window.open(fullUrl,'_self');            
+            } else {
+                alert('Please enter bintu api key before proceeding');
+            }
+        }
+    </script>
+
+</body>
+</html>

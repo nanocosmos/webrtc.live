@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!-- nanoStream WebRTC Webcast / Broadcast to RTMP
+     (c) 2014-2018 nanocosmos gmbh, All rights reserved
+     http://www.nanocosmos.de -->
+<html>
+<head>
+    <title>nanoStream WebRTC.live broadcast</title>
+    <link href="./css/lib/bootstrap.css" media="all" rel="stylesheet">
+    <link href="./css/app/nano.chat.css" media="all" rel="stylesheet">
+    <link href="./css/app/nano.chat.mobile.css" media="all" rel="stylesheet">
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <div class="container">
+        <div class="row not-on-mobile">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h1>nanoStream WebRTC.live
+                    </h1>
+                    <span class="label label-default">broadcast</span>
+                    <span id="nanoversion" class="label label-info">nanowebrtc v</span>
+                    <a href="http://nanocosmos.de/contact">nanocosmos.de/contact</a>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div id="message-box" class="panel panel-primary container-fluid text-center" style="display:none;z-index:999;position:fixed;width:40%;left:30%;top:30%;margin-left:auto;margin-right:auto">
+            <div class="panel-heading"><h3 class="panel-title navbar-btn">Message</h3><button id="btn-x" class="btn btn-primary pull-right" style="position:absolute;right:8px;top:8px">&nbsp;X&nbsp;</button></div>
+            <div class="panel-body" style="font-weight:bold">
+                <span id="info-message"></span>
+            </div>
+            <div class="panel-footer">
+                <p>
+                    <button id="btn-ok" class="btn btn-primary" style="margin-left:auto;margin-right:auto">ok</button>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div id="media-content" class="col-md-6">
+                <!-- video containers -->
+                <div class="media-content col-md-12">
+                    <div id="local-video" class="panel panel-primary text-center">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Local Video</h3><canvas id="audio-process" class="pull-right" style="position:absolute;right:24px;top:10px" width="30" height="30"></canvas></div>
+                        <div class="panel-body" style="position:relative">
+                            <video id="video-local" class="remote-element-video" autoplay playsinline muted style="width:100%;height:100%"></video>
+                            <button id="btn-startstopbroadcast" class="btn btn-primary btn-broadcast-mobile">start broadcast</button>
+                        </div>
+
+                        <div class="panel-footer">
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <button id="buttonToggleDeviceOptions" class="btn btn-primary">device options</button>
+                                    <button id="buttonPreview" class="btn btn-primary">stop preview</button>
+                                    <button id="buttonToggleVideo" data-muted="false" data-media="video" class="btn btn-primary">mute video</button>
+                                    <button id="buttonToggleAudio" data-muted="false" data-media="audio" class="btn btn-primary">mute audio</button>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="container">
+                               
+                                <div id="device-options" style="display:none">
+
+                                    <hr>
+
+                                    <div class="container text-left"><span class="label label-default">General Settings</span></div><br>
+                                    <div class="container">
+
+                                        <div class="row text-left">                
+                                            <div class="col-xs-7">Select Video Source Type</div>
+                                        </div>
+
+                                        <div class="row text-left">                
+                                            <div class="col-xs-7">
+                                                <div class="container">
+                                                <div class="btn-group" role="group" aria-label="...">
+                                                    <button id="btn-source-camera" type="button" class="btn btn-default active">Camera</button>
+                                                    <button id="btn-source-screen" type="button" class="btn btn-default" style="display:none">Screen Share</button>
+                                                </div>
+                                                <br>
+                                                </div>
+                                            </div>
+                                            <div id="install-screencapture" class="col-xs-5">
+                                                <button id="btn-install-screenshare" type="button" class="btn btn-danger">Install Screen Capture</button>
+                                                <br>
+                                                <p>Screen Capture Extension not installed, please install extension and reload page.</p>
+                                            </div>
+                                        </div>              
+
+                                    </div>
+
+                                    <hr>
+                                    
+                                    <div class="container text-left"><span class="label label-default">Video</span></div><br>
+                                    <div class="container">
+                                        
+                                        <div class="row text-left">                
+                                            <div class="col-xs-6">Device</div>
+                                            <div class="col-xs-3">Resolution</div>
+                                            <div class="col-xs-3">Framerate</div>
+                                        </div>
+
+                                        <div class="row">                
+                                            <div id="video-source" class="col-xs-6">
+                                                <select class="form-control input-sm" id="comboBoxVideoSources"></select>
+                                                <button id="btn-select-screen" class="btn btn-default form-control" style="display:none">Change Screen Share</button>
+                                            </div>
+                                            <div class="col-xs-3"><select class="form-control input-sm inline-select" id="comboBoxResolutions"></select></div>
+                                            <div class="col-xs-3"><select class="form-control input-sm inline-select" id="comboBoxFramerates"></select></div>
+                                        </div>
+
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="container text-left"><span class="label label-default">Audio</span></div><br>
+                                    <div class="container">
+                                        
+                                        <div class="row text-left">
+                                            <div class="col-xs-7">Device</div>
+                                        </div>
+
+                                        <div class="row text-left">
+                                            <div class="col-xs-7"><select class="form-control input-sm" id="comboBoxAudioSources"></select></div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="option-content" class="col-md-6">
+                <div class="col-md-12">
+                    <!-- room members list-->
+                    <div id="room-members" class="panel panel-primary container-fluid" style="display:none">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Room Members</h3></div>
+                        <div class="panel-body" style="display:none">
+
+                        </div>
+                        <div class="panel-footer">
+                            <input id="chk-autoanswer" type="checkbox" checked> Autoanswer calls
+                            <button id="btn-call" class="btn btn-primary" disabled="true">call selected</button>
+                            <button id="btn-hangup" class="btn btn-primary" disabled="true">hangup selected</button>
+                        </div>
+                    </div>
+
+                    <div id="statistics" class="panel panel-primary container-fluid" style="display:none">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Statistics</h3></div>
+                        <div class="panel-body" style="display:none">
+                            <ul id="listStatistics" class="list-group"></ul>
+                        </div>
+                    </div>
+
+                    <div id="chat-settings" class="panel panel-primary container-fluid" style="display:none">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Chat Settings</h3></div>
+                        <div class="panel-body" style="display:block">
+                            <div class="form-inline">
+
+                                <div class="form-group">
+                                    <label for="input-name">Your Name</label>
+                                    <input id="input-name" type="text" class="form-control" placeholder="enter your name">
+                                    <label for="input-room">Room Name</label>
+                                    <input id="input-room" type="text" class="form-control" placeholder="enter room name">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="panel-footer">
+                            <button id="btn-enter" class="btn btn-primary navbar-btn">enter room</button>
+                            <button id="btn-leave" class="btn btn-primary navbar-btn" disabled="true">leave room</button>
+                        </div>
+                    </div>
+
+                    <div id="broadcast-settings" class="panel panel-primary container-fluid">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Broadcast Settings</h3></div>
+                        <div class="panel-body">
+
+                                <div class="containerner">
+                                    <input id="chk-usebintu" type="checkbox"> Use bintu.live to create streams<br>
+                                    <input id="chk-autoreconnect" type="checkbox" checked> Auto-Reconnect<br>
+                                    <hr>
+                                    <div class="container text-left"><span class="label label-default">nanoStream Cloud / bintu.live</span></div><br>
+                                                                        
+                                    <div>Bintu Stream Tags (sep. by comma)</div>
+                                    <input disabled id="inputBintuTags" type="text" class="form-control" placeholder="enter tags for the bintu stream">
+                                    <div id="bintu-streamid" style="display:none">
+                                        <div>Bintu StreamId</div>
+                                        <input id="inputBintuStreamid" disabled type="text" data-h5live="false" class="form-control" placeholder="the bintu stream id">
+                                    </div>
+                                    <button id="buttonBintuSettings" class="btn btn-primary navbar-btn">create new live stream</button><br />
+                                    
+                                    <div style="display:none">
+                                    <div>Bintu API URL</div>
+                                    <input disabled id="inputBintuApiUrl" type="text" class="form-control" placeholder="enter the bintu apiurl">
+                                    <label for="inputBintuApiKey">Bintu Apikey</label>
+                                    <input disabled id="inputBintuApiKey" type="text" class="form-control" placeholder="enter the bintu apikey">
+                                    </div>
+
+                                    <hr>
+                                    
+                                    <div class="container text-left"><span class="label label-default">Live Stream</span></div><br>
+                                    <div>RTMP Broadcast Url</div>
+                                    <input id="input-rtmp-url" type="text" class="form-control" placeholder="enter a rtmp url">
+                                    <div>RTMP Stream Name</div>
+                                    <input id="input-stream-name" type="text" class="form-control" placeholder="enter a stream name">
+                                    
+                                    <div class="row text-left">                
+                                        <div class="col-xs-4">Video Codec</div>
+                                        <div class="col-xs-4">Video Bitrate (average)</div>
+                                        <div class="col-xs-4">Audio Bitrate</div>
+                                    </div>
+
+                                    <div class="row text-left">                
+                                        <div class="col-xs-4"><input disabled type="text" class="form-control" placeholder="H264/AAC"></div>
+                                        <div class="col-xs-4"><select class="form-control" id="comboBoxVideoBitrates"></select></div>
+                                        <div class="col-xs-4"><select class="form-control" id="comboBoxAudioBitrates"></select></div>
+                                    </div>
+
+                                    <hr>
+
+                                    <div class="container text-left"><span class="label label-default">Webrtc Codec and Quality</span></div><br>
+                                    <div class="row text-left">                
+                                        <div class="col-xs-4">Video Codec</div>
+                                        <div class="col-xs-4">Video Bitrate (max)</div>
+                                    </div>
+
+                                    <div class="row">                
+                                        <div class="col-xs-4">
+                                            <input disabled type="text" class="form-control" placeholder="H264">
+                                        </div>
+
+                                        <div class="col-xs-4">
+                                            <select class="form-control" id="comboBoxVideoBitratesRTC"><option>Auto</option></select>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                        </div>
+                        <div class="panel-footer">
+                            <button id="btn-startbroadcast" class="btn btn-primary navbar-btn">start broadcast</button>
+                            <button id="btn-stopbroadcast" class="btn btn-primary navbar-btn" disabled="true">stop broadcast</button>
+                            <label id="broadcast-status"></label>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-primary container-fluid">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Broadcast Info</h3></div>
+                        <div id="broadcast-info" class="panel-body" style="display:none">
+
+                        </div>
+                    </div>
+                    <div id="server-settings" class="panel panel-primary container-fluid">
+                        <div class="panel-heading"><h3 class="panel-title navbar-btn">Server Settings</h3></div>
+                        <div class="panel-body" style="display:none">
+                            <div class="form-inline">
+
+                                <div class="form-group">
+                                    <label for="input-server">Server URL</label>
+                                    <input id="input-server" type="text" class="form-control" placeholder="enter server name">
+                                    <button id="btn-checkServer" type="submit" class="btn btn-primary navbar-btn">check server</button>
+                                    <input id="chk-updatePeriodically" type="checkbox"> Update periodically
+                                    <span id="txt-serverStats" class="help-block"></span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row not-on-mobile">
+            <div class="col-md-12">
+                <div class="col-md-12">
+                    <h3 class="text-primary">Debug-Info</h3>
+
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li><a href="#pane-debug" aria-controls="pane-debug" role="tab" data-toggle="tab">Print-Log</a></li>
+                        <li class="active"><a href="#pane-events" aria-controls="pane-events" role="tab" data-toggle="tab">Event-Log</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+
+                        <div role="tabpanel" class="tab-pane" id="pane-debug">
+                            <div class="bg-info container">
+                                <div id="errors"></div>
+                                <div id="rtcstats" class="text-info"></div>
+                                <div id="stats" class="text-info"></div>
+                                <div id="messages"></div>
+                                <div id="debug"></div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane active" id="pane-events"></div>
+                        <div role="tabpanel" class="tab-pane" id="messages"></div>
+                        <div role="tabpanel" class="tab-pane" id="settings"></div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        (c) 2018 nanocosmos gmbh, <a href="http://www.nanocosmos.de/">nanocosmos.de</a>
+        <br>
+    
+    </div>
+
+
+  
+    <script src="./js/lib/jquery-2.1.1.min.js"></script>
+    <script src="./js/lib/bootstrap.min.js"></script>
+
+    
+      
+    
+        <script src="./js/api/webrtc/nano.webrtc.4.8.0.min.js"></script>
+        <script src="./js/api/bintu/nano.bintu.0.5.min.js"></script>
+    
+    
+    <script src="./js/app/nano.config.js"></script>
+    <script src="./js/app/controller.js"></script>
+    
+    <script type="text/javascript">
+
+        var app = new AppController().init();
+
+    </script>
+
+</body>
+</html>
